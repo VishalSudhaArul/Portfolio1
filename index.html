@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Vishal Sudha Arul — Portfolio</title>
+  <meta name="description" content="Portfolio of Vishal Sudha Arul — Full-stack & Dashboard Developer" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: linear-gradient(180deg,#071233 0%, #051225 100%);
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --muted: #9aa7bf;
+      --accent: linear-gradient(90deg,#3b82f6,#7c3aed);
+      --accent-solid: #4f7bff;
+      --glass-border: rgba(255,255,255,0.06);
+      --text: #e6eef8;
+      --maxw:1200px;
+      --radius:12px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;
+      display:flex; justify-content:center; padding:28px;
+    }
+    .container{width:100%; max-width:var(--maxw); display:grid; grid-template-columns:260px 1fr; gap:20px; align-items:start;}
+    @media (max-width:980px){ .container{grid-template-columns:1fr; padding:12px} }
+
+    /* SIDEBAR */
+    .sidebar{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-border); border-radius:var(--radius);
+      padding:18px; height:100%; position:sticky; top:28px; backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(1,6,20,0.6);
+    }
+    .avatar{
+      width:84px;height:84px;border-radius:14px;background:linear-gradient(135deg,#4f7bff,#7c3aed);
+      display:grid;place-items:center;font-weight:800;font-size:28px;color:white;margin-bottom:12px;
+    }
+    .name{font-weight:800;font-size:18px}
+    .role{color:var(--muted);font-size:13px;margin-top:6px}
+    .side-links{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+    .side-links a{color:var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; font-size:13px}
+    .side-links a:hover{background:rgba(255,255,255,0.02)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-size:12px;margin-top:12px}
+
+    /* MAIN */
+    .main{
+      min-height:600px;
+    }
+    header.main-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      border:1px solid var(--glass-border); padding:18px; border-radius:var(--radius); backdrop-filter: blur(8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap;
+    }
+    .hero-left{flex:1}
+    .hero h1{font-size:22px;margin-bottom:6px}
+    .hero p{color:var(--muted); font-size:13px}
+    .actions{margin-top:12px;display:flex;gap:10px}
+    .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;color:white;background:var(--accent-solid);text-decoration:none}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+
+    /* sections */
+    .section{margin-top:16px;padding:16px;border-radius:12px;background:var(--card);border:1px solid var(--glass-border);backdrop-filter:blur(6px)}
+    h2{font-size:16px;margin-bottom:8px}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* skills grid */
+    .skills{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .skill-card{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02)}
+    .skill-title{font-weight:700;font-size:13px}
+    .bar{height:8px;background:rgba(255,255,255,0.04);border-radius:8px;margin-top:8px;overflow:hidden}
+    .fill{height:100%;width:0;background:linear-gradient(90deg,#3b82f6,#7c3aed);transition:width .9s cubic-bezier(.19,1,.22,1)}
+
+    /* projects */
+    .projects{display:grid;gap:12px}
+    .proj{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);transition:transform .2s}
+    .proj:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.5)}
+    .proj .badge{width:72px;height:72px;border-radius:8px;background:linear-gradient(135deg,#0f172a22,#0b122933);display:grid;place-items:center;font-weight:700}
+    .proj h3{margin:0;font-size:15px}
+    .proj p{margin:6px 0 0 0;color:var(--muted);font-size:13px}
+    .proj .meta{margin-left:auto;color:var(--muted);font-size:12px}
+
+    /* modal */
+    .modal-wrap{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(1,6,20,0.7);z-index:80}
+    .modal{width:min(880px,94%);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.06)}
+    .close{float:right;background:none;border:0;color:var(--muted);font-size:20px;cursor:pointer}
+
+    /* timeline */
+    .timeline{position:relative;padding-left:18px}
+    .timeline:before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#3b82f6,#7c3aed);opacity:.12}
+    .event{position:relative;margin-bottom:14px;padding-left:18px}
+    .dot{position:absolute;left:-1px;top:2px;width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,#3b82f6,#7c3aed)}
+
+    /* certificates carousel */
+    .carousel{display:flex;gap:10px;overflow:hidden;padding-top:8px}
+    .cert{min-width:220px;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));}
+    .cert h4{margin:0;font-size:13px}
+    .cert p{color:var(--muted);font-size:12px;margin-top:6px}
+
+    /* footer */
+    footer{margin-top:16px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small screens */
+    @media (max-width:760px){
+      .skills{grid-template-columns:1fr}
+      .projects{grid-template-columns:1fr}
+    }
+
+    /* utility */
+    .row{display:flex;gap:10px;align-items:center}
+    a {color:inherit}
+
+
+    .avatar-img{
+  width:84px;
+  height:84px;
+  border-radius:14px;
+  object-fit:cover;
+  object-position:center;
+  border:2px solid rgba(255,255,255,0.06);
+  margin-bottom:12px;
+}
+
+
+
+  </style>
+</head>
+<body>
+  <div class="container" role="document">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <div style="display:flex;align-items:center;gap:12px">
+      <!--   <div class="avatar" id="avatar">VS</div> -->
+       <img src="image.jpg" alt="Profile Photo" class="avatar-img" id="avatar">
+        <div>
+          <div class="name">Vishal Sudha Arul</div>
+          <div class="role">B.Tech CSE • Full-stack & Dashboard Developer</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="pill">Open to internships & junior roles</div>
+      </div>
+
+      <nav class="side-links" style="margin-top:14px" aria-label="Main Navigation">
+        <a href="#home">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#training">Training</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div style="margin-top:14px">
+        <div class="muted" style="font-size:12px">Contact</div>
+        <div style="margin-top:6px" class="muted">vishaarul2005@gmail.com</div>
+        <div style="margin-top:6px" class="muted">+91-7904368404</div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+       <!-- <a class="btn" href="/mnt/data/General CV Template (1) (1).docx" download>Download Resume</a> -->
+        <button id="toggle-dark" class="btn ghost" title="Toggle dark mode">Toggle</button>
+      </div>
+
+      <div style="margin-top:14px">
+        <div class="muted" style="font-size:12px">Links</div>
+        <div style="margin-top:8px" class="muted"><a href="https://github.com/VishalSudhaArul" target="_blank">GitHub</a></div>
+        <div style="margin-top:6px" class="muted"><a href="https://www.linkedin.com/in/vishal-sa" target="_blank">LinkedIn</a></div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main" id="home">
+      <header class="main-head">
+        <div class="hero">
+          <div class="hero-left">
+            <h1>Vishal Sudha Arul</h1>
+            <p class="muted">Third-year Computer Science undergraduate focused on full-stack development, dashboards, and secure application practices. I convert algorithms into user-facing features and ship production-grade UI.</p>
+            <div class="actions">
+              <a class="btn" href="https://vishalsudhaarul.github.io/Student-performance-Predictor/" target="_blank">View Live — Student Predictor</a>
+              <a class="btn ghost" href="https://github.com/VishalSudhaArul/Retrofit-Fitness-and-Sports" target="_blank">Retro (GitHub)</a>
+            </div>
+          </div>
+          <div style="min-width:240px">
+            <div class="muted" style="font-size:13px">Quick facts</div>
+            <div style="margin-top:8px" class="row">
+              <div style="font-weight:700">Location</div><div class="muted">Namakkal, Tamil Nadu</div>
+            </div>
+            <div style="margin-top:6px" class="row">
+              <div style="font-weight:700">Education</div><div class="muted">Lovely Professional University, B.Tech CSE</div>
+            </div>
+            <div style="margin-top:10px" class="muted">Available for internships & junior roles • References available on request</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Skills -->
+      <section class="section" id="skills" aria-labelledby="skills">
+        <h2>Skills</h2>
+        <div class="muted">Technical skills — organized by specialization</div>
+        <div class="skills" style="margin-top:12px">
+          <div class="skill-card">
+            <div class="skill-title">Frontend</div>
+            <div class="muted">React.js • HTML5 • CSS3 • Tailwind CSS • Chart.js</div>
+            <div class="bar" style="margin-top:10px"><div class="fill" data-val="90"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-title">Backend</div>
+            <div class="muted">Node.js • PHP • MySQL • MongoDB</div>
+            <div class="bar" style="margin-top:10px"><div class="fill" data-val="78"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-title">Data & DSA</div>
+            <div class="muted">Data Structures • Algorithms • Charting • Predictive logic</div>
+            <div class="bar" style="margin-top:10px"><div class="fill" data-val="82"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-title">Security & Tools</div>
+            <div class="muted">Ethical Hacking basics • Git • VS Code • LocalStorage</div>
+            <div class="bar" style="margin-top:10px"><div class="fill" data-val="70"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="section" id="projects" style="margin-top:14px">
+        <h2>Projects</h2>
+        <div class="muted">Selected projects — click View for details</div>
+        <div class="projects" style="margin-top:12px">
+          <div class="proj" data-key="retro">
+            <div class="badge">RT</div>
+            <div>
+              <h3>Retro — Fitness & Workout Web Platform</h3>
+              <p class="muted">Objective: deliver a media-rich fitness platform with session management, challenge tracking, and booking flow.</p>
+              <p style="margin-top:6px;color:var(--muted)"><strong>Tech:</strong> HTML, CSS, JavaScript, Tailwind, PHP, MySQL, JSON</p>
+            </div>
+            <div class="meta"><span class="muted">Sep ’25</span><div style="margin-top:6px"><a href="#" class="muted open" data-open="retro">View</a></div></div>
+          </div>
+
+          <div class="proj" data-key="student">
+            <div class="badge">SP</div>
+            <div>
+              <h3>Student Performance Predictor Dashboard</h3>
+              <p class="muted">Objective: predict and visualize student outcomes using academic metrics and DSA-driven models.</p>
+              <p style="margin-top:6px;color:var(--muted)"><strong>Tech:</strong> HTML, CSS, JavaScript, Tailwind, Chart.js, LocalStorage</p>
+            </div>
+            <div class="meta"><span class="muted">Aug ’25</span><div style="margin-top:6px"><a href="#" class="muted open" data-open="student">View</a></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Training -->
+      <section class="section" id="training" style="margin-top:14px">
+        <h2>Training</h2>
+        <div class="muted">Relevant technical training</div>
+        <div style="margin-top:10px">
+          <div style="margin-bottom:8px"><strong>Basics of Data Structures & Algorithms</strong> — Lovely Professional University (CPE)</div>
+          <div><strong>Ethical Hacking Industrial Training</strong> — CodeSprint (30+ hours)</div>
+        </div>
+      </section>
+
+      <!-- Certificates -->
+      <section class="section" id="certificates" style="margin-top:14px">
+        <h2>Certificates</h2>
+        <div class="muted">Selected certifications</div>
+        <div class="carousel" style="margin-top:12px" id="certs">
+          <div class="cert">
+            <h4>HackerRank — Frontend Developer (React)</h4>
+            <p class="muted">Role certification (React)</p>
+          </div>
+          <div class="cert">
+            <h4>NPTEL — Privacy & Security in Online Social Media</h4>
+            <p class="muted">Certified by IIT Madras</p>
+          </div>
+          <div class="cert">
+            <h4>FreeCodeCamp — Responsive Web Design</h4>
+            <p class="muted">300+ hours</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Achievements -->
+      <section class="section" id="achievements" style="margin-top:14px">
+        <h2>Achievements</h2>
+        <div class="muted">Highlights</div>
+        <ul style="margin-top:10px;color:var(--muted);line-height:1.6">
+          <li><strong>9th Rank — FINATHON (Nov ’24)</strong> — Top 9/500 in a 2-day national trading hackathon.</li>
+          <li><strong>300+ hours — FreeCodeCamp</strong> — Responsive Web Design certification.</li>
+          <li><strong>80th percentile — CUET</strong> — National exam percentile.</li>
+        </ul>
+      </section>
+
+      <!-- Timeline -->
+      <section class="section" id="timeline" style="margin-top:14px">
+        <h2>Timeline</h2>
+        <div class="timeline" style="margin-top:10px">
+          <div class="event"><div class="dot"></div><strong>Aug ’25</strong><div class="muted">Student Performance Predictor — project</div></div>
+          <div class="event"><div class="dot"></div><strong>Sep ’25</strong><div class="muted">Retro — Fitness Platform — project</div></div>
+          <div class="event"><div class="dot"></div><strong>Nov ’24</strong><div class="muted">9th Rank — FINATHON</div></div>
+          <div class="event"><div class="dot"></div><strong>Mar ’24</strong><div class="muted">Ethical Hacking Training — CodeSprint</div></div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact" style="margin-top:14px">
+        <h2>Contact</h2>
+        <div class="muted">Get in touch</div>
+        <div style="margin-top:10px" class="row">
+          <a class="btn" href="mailto:vishaarul2005@gmail.com">Email Me</a>
+          <a class="btn ghost" href="https://github.com/VishalSudhaArul" target="_blank">GitHub</a>
+        </div>
+      </section>
+
+      <footer style="margin-top:16px">© Vishal Sudha Arul — Portfolio</footer>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-wrap" id="modal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="close" id="closeModal">×</button>
+      <h3 id="modalTitle">Project</h3>
+      <p id="modalDesc" class="muted"></p>
+      <p id="modalTech" style="margin-top:8px;color:var(--muted)"></p>
+      <div style="margin-top:12px">
+        <strong>Responsibilities</strong>
+        <ul id="modalResp" class="muted" style="margin-top:6px"></ul>
+      </div>
+      <div style="margin-top:12px">
+        <strong>Outcome</strong>
+        <p id="modalOut" class="muted"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data for modal
+    const projectData = {
+      retro:{
+        title:"Retro — Fitness & Workout Web Platform",
+        desc:"Objective: deliver a media-rich fitness platform with session management, challenge tracking, multimedia workouts and booking flow.",
+        tech:"HTML, CSS, JavaScript, Tailwind CSS, PHP, MySQL, JSON",
+        resp:[
+          "Designed and implemented session management and booking modules.",
+          "Integrated multimedia playback for workout sessions and challenge progress.",
+          "Built responsive UI and optimized backend PHP endpoints."
+        ],
+        out:"Delivered a responsive, media-rich UI with reliable session handling and improved engagement."
+      },
+      student:{
+        title:"Student Performance Predictor Dashboard",
+        desc:"Objective: predict and visualize student outcomes using academic indicators and algorithmic data structures.",
+        tech:"HTML, CSS, JavaScript, Tailwind CSS, Chart.js, LocalStorage",
+        resp:[
+          "Applied DSA-based structures for attendance and assignment queues.",
+          "Built interactive Chart.js visualizations and data filtering.",
+          "Persisted user preferences and improved analytics responsiveness."
+        ],
+        out:"Delivered real-time analytics and improved decision-making through interactive visual reports."
+      }
+    };
+
+    // Open modal
+    document.querySelectorAll('.open').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.preventDefault();
+        const key = e.target.getAttribute('data-open');
+        const p = projectData[key];
+        document.getElementById('modalTitle').textContent = p.title;
+        document.getElementById('modalDesc').textContent = p.desc;
+        document.getElementById('modalTech').textContent = "Tech: " + p.tech;
+        const ul = document.getElementById('modalResp'); ul.innerHTML='';
+        p.resp.forEach(r=>{ const li=document.createElement('li'); li.textContent=r; ul.appendChild(li)});
+        document.getElementById('modalOut').textContent = p.out;
+        document.getElementById('modal').style.display='flex';
+      });
+    });
+    document.getElementById('closeModal').addEventListener('click', ()=> document.getElementById('modal').style.display='none');
+    document.getElementById('modal').addEventListener('click', e => { if(e.target.id==='modal') document.getElementById('modal').style.display='none' });
+
+    // Skill bars animate on scroll
+    const fills = document.querySelectorAll('.fill');
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          fills.forEach(f=>{
+            const v = f.getAttribute('data-val') || 70;
+            f.style.width = v + '%';
+          });
+        }
+      });
+    }, {threshold:0.2});
+    obs.observe(document.querySelector('#skills'));
+
+    // cert carousel autoscroll
+    const carousel = document.getElementById('certs');
+    let pos = 0;
+    setInterval(()=> {
+      pos += 232;
+      if(pos > (carousel.scrollWidth - carousel.clientWidth)) pos = 0;
+      carousel.scrollTo({left: pos, behavior:'smooth'});
+    }, 2500);
+
+    // dark toggle: flips background palette (simple)
+    const toggle = document.getElementById('toggle-dark');
+    toggle.addEventListener('click', ()=>{
+      const root = document.documentElement;
+      const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+      if(bg.includes('#071233')){
+        root.style.setProperty('--bg','linear-gradient(180deg,#f8fafc 0%, #eef2ff 100%)');
+        root.style.setProperty('--card','rgba(13,17,23,0.04)');
+        root.style.setProperty('--text','#061126');
+        root.style.setProperty('--glass-border','rgba(0,0,0,0.06)');
+        document.body.style.color = '#061126';
+      } else {
+        root.style.setProperty('--bg','linear-gradient(180deg,#071233 0%, #051225 100%)');
+        root.style.setProperty('--card','rgba(255,255,255,0.03)');
+        root.style.setProperty('--text','#e6eef8');
+        root.style.setProperty('--glass-border','rgba(255,255,255,0.06)');
+        document.body.style.color = '#e6eef8';
+      }
+    });
+
+    // keyboard accessible: escape closes modal
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') document.getElementById('modal').style.display='none' });
+
+    // make sidebar anchors smooth
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').substring(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
